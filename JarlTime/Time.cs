@@ -19,13 +19,18 @@ namespace JarlTime
 		{
 			return new Time(DateTime.UtcNow);
 		}
-		private static IDictionary<ProjectionType,Func<Time,Timezone,IProjection>> projectionTypes=new Dictionary<ProjectionType,Func<Time,Timezone,IProjection>>()
+		private static IDictionary<ProjectionType,Func<Time,Timezone?,IProjection>> projectionTypes=new Dictionary<ProjectionType,Func<Time,Timezone?,IProjection>>()
 		{
 			{ProjectionType.Gregorian,(x,y)=>new GregorianProjection(x.datetime,y)}
 		};
+
 		public IProjection Projection(ProjectionType type=ProjectionType.Gregorian,Timezone timezone=Timezone.UTC)
 		{
 			return projectionTypes[type](this,timezone);
+		}
+		public IProjection Local(ProjectionType type=ProjectionType.Gregorian)
+		{
+			return projectionTypes[type](this,null);
 		}
 	}
 }
