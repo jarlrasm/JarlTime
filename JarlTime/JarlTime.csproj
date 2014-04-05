@@ -35,7 +35,11 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Projection.cs" />
-    <Compile Include="GregorianProjection.cs" />
+    <Compile Include="Timezone.cs" />
+    <Compile Include="UnixEpoch.cs" />
+    <Compile Include="Gregorian.cs" />
+    <Compile Include="Interval.cs" />
+    <Compile Include="TimeExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

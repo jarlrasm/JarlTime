@@ -2,35 +2,32 @@ using System;
 using System.Collections.Generic;
 namespace JarlTime
 {
-	public enum Timezone
-	{
-		UTC
-	}
 	public struct Time
 	{
-		private readonly DateTime datetime;
+		private readonly decimal secondsFromEpoch;
 
-		private Time (DateTime datetime)
+		public Time (decimal seconds)
 		{
-			this.datetime=datetime;
+			this.secondsFromEpoch=seconds;
 		}
 
 		public static Time Now ()
 		{
-			return new Time(DateTime.UtcNow);
+			return new Time(new decimal((DateTime.UtcNow-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds));
 		}
-		private static IDictionary<ProjectionType,Func<Time,Timezone?,IProjection>> projectionTypes=new Dictionary<ProjectionType,Func<Time,Timezone?,IProjection>>()
-		{
-			{ProjectionType.Gregorian,(x,y)=>new GregorianProjection(x.datetime,y)}
-		};
 
-		public IProjection Projection(ProjectionType type=ProjectionType.Gregorian,Timezone timezone=Timezone.UTC)
+		public decimal SecondsFromEpoch{get{ return secondsFromEpoch;}}
+
+		private static IDictionary<Type,Func<Time,Timezone,IProjection>> constructors=new Dictionary<Type,Func<Time,Timezone,IProjection>>()
 		{
-			return projectionTypes[type](this,timezone);
-		}
-		public IProjection Local(ProjectionType type=ProjectionType.Gregorian)
+			{typeof(Gregorian),(x,y)=>new Gregorian(x,y)},
+			{typeof(UnixEpoch),(x,y)=>new UnixEpoch(x,y)}
+		};
+		public T Projection<T>(Timezone timezone=null) where T:class,IProjection 
 		{
-			return projectionTypes[type](this,null);
+			if (timezone == null)
+				timezone = Timezone.UTC ();
+			return constructors[typeof(T)](this,timezone) as T;
 		}
 	}
 }
