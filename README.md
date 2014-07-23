@@ -15,8 +15,10 @@ If you like to inject code:
 ```csharp
 ITimeContext timeContext = new TimeContext();
 Time time = timeContext.Now();
+time=time.Add(10.Days().And(10.Hours()));
 Gregorian gregorian=time.Projection<Gregorian>(timeContext.Here());
-int year=gregorian.Year;
+int hour=gregorian.Hour();
+string datestring=gregorian.ToString("yyyy MM dd");
 ```
 
 If you are lazy
