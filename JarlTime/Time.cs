@@ -23,6 +23,10 @@ namespace JarlTime
 			{typeof(Gregorian),(x,y)=>new Gregorian(x,y)},
 			{typeof(UnixEpoch),(x,y)=>new UnixEpoch(x,y)}
 		};
+        public static void RegisterProjection<T>(Func<Time,Timezone,T> registration) where T:class,IProjection
+        {
+            constructors [typeof(T)] = registration;
+        }
 		public T Projection<T>(Timezone timezone=null) where T:class,IProjection 
 		{
 			if (timezone == null)
