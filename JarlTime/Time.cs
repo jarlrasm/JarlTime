@@ -5,33 +5,26 @@ namespace JarlTime
 	public struct Time
 	{
 		private readonly decimal secondsFromEpoch;
+		private readonly ITimeContext context;
 
-		public Time (decimal seconds)
+		public Time (decimal seconds,ITimeContext context)
 		{
+			if (context == null)
+				throw new ArgumentNullException("context");
+			this.context = context;
 			this.secondsFromEpoch=seconds;
 		}
 
-		public static Time Now ()
+		public ITimeContext Context
 		{
-			return new Time(new decimal((DateTime.UtcNow-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds));
+			get{ return context;}
 		}
 
 		public decimal SecondsFromEpoch{get{ return secondsFromEpoch;}}
 
-		private static IDictionary<Type,Func<Time,Timezone,IProjection>> constructors=new Dictionary<Type,Func<Time,Timezone,IProjection>>()
+		public T Projection<T>(TimeZone timezone=null) where T:class,IProjection 
 		{
-			{typeof(Gregorian),(x,y)=>new Gregorian(x,y)},
-			{typeof(UnixEpoch),(x,y)=>new UnixEpoch(x,y)}
-		};
-        public static void RegisterProjection<T>(Func<Time,Timezone,T> registration) where T:class,IProjection
-        {
-            constructors [typeof(T)] = registration;
-        }
-		public T Projection<T>(Timezone timezone=null) where T:class,IProjection 
-		{
-			if (timezone == null)
-				timezone = Timezone.UTC ();
-			return constructors[typeof(T)](this,timezone) as T;
+			return context.GetProjection<T> (this, timezone);
 		}
 	}
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C55DA6B7-C882-441C-A595-C57FB68F9219}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -34,12 +34,18 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Time.cs" />
-    <Compile Include="Projection.cs" />
     <Compile Include="Timezone.cs" />
-    <Compile Include="UnixEpoch.cs" />
-    <Compile Include="Gregorian.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="TimeExtensions.cs" />
+    <Compile Include="ITimeContext.cs" />
+    <Compile Include="IProjection.cs" />
+    <Compile Include="DefaultTimeContext.cs" />
+    <Compile Include="Right.cs" />
+    <Compile Include="Projections\Gregorian.cs" />
+    <Compile Include="Projections\UnixEpoch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Projections\" />
+  </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ namespace JarlTime
 		}
 		public static Time Add(this Time time, Interval interval)
 		{
-			return new Time (time.SecondsFromEpoch + interval.Seconds);
+			return new Time (time.SecondsFromEpoch + interval.Seconds,time.Context);
 		}
 		public static Interval Seconds(this decimal number)
 		{
@@ -51,9 +51,9 @@ namespace JarlTime
                                          .AddSeconds((double)fromtime.SecondsFromEpoch),TimeZoneInfo.Utc,timezone);
          }
 
-         public static Time ToTime(this DateTime dateTime)
+		public static Time ToTime(this DateTime dateTime,ITimeContext context)
          {
-            return new Time(new decimal((dateTime.ToUniversalTime()-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds));
+			return new Time(new decimal((dateTime.ToUniversalTime()-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds),context);
          }
 	}
 }

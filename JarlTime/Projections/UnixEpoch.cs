@@ -1,17 +1,17 @@
 using System;
 
-namespace JarlTime
+namespace JarlTime.Projections
 {
 	public class UnixEpoch:IProjection
 	{
 		private readonly Time time;
 
-		internal UnixEpoch (Time time,Timezone timezone)
+		internal UnixEpoch (Time time,TimeZone timezone)
 		{
 			this.time = time;
 		}
 
-		public UnixEpoch(decimal seconds):this(new Time(seconds),null)
+		public UnixEpoch(decimal seconds,ITimeContext context):this(new Time(seconds,context),null)
 		{
 		}
 		public decimal SecondsFromEpoch

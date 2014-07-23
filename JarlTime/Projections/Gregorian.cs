@@ -1,26 +1,28 @@
 using System;
 
-namespace JarlTime
+namespace JarlTime.Projections
 {
 	
 	public class Gregorian:IProjection
 	{
       private readonly Time time;
-      private readonly Timezone timezone;
-		public Gregorian(int year,int month,int day, int hour=0,int minute=0,int second=0, int milliseconds=0,Timezone timezone=null)
+      private readonly TimeZone timezone;
+		public Gregorian(ITimeContext context,int year,int month,int day, int hour=0,int minute=0,int second=0, int milliseconds=0,TimeZone timezone=null)
 		{
 			if (timezone == null)
-				timezone = Timezone.UTC ();
-         this.timezone = timezone;
+				timezone = TimeZone.UTC ();
+         	this.timezone = timezone;
 			//TODO: Validate input
-         time = new DateTime(year, month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime();
+			this.time = new DateTime(year, month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime(context);
 
 		}
 
-		internal Gregorian (Time time, Timezone timezone)
+		internal Gregorian (Time time, TimeZone timezone)
 		{
-         this.time = time;
-         this.timezone = timezone;
+			this.time = time;
+			if (timezone == null)
+				timezone = TimeZone.UTC ();
+         	this.timezone = timezone;
 		}
 
 		public int Year 
@@ -31,8 +33,12 @@ namespace JarlTime
       {
          get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Month; }
 		}
-		public int Day {
-         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Day; }
+		public int Day 
+		{
+         	get
+			{
+				return time.ToDateTime(timezone.ToTimeZoneInfo()).Day; 
+			}
 		}
 		public int Hour {
          get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Hour; }

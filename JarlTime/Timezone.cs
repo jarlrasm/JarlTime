@@ -2,32 +2,26 @@ using System;
 using System.Collections.Generic;
 namespace JarlTime
 {
-	public class Timezone
+	public class TimeZone//TODO: Does not really do much yet. It is supposed to implement IANA tz: http://www.iana.org/time-zones
 	{
         private readonly TimeZoneInfo internalTz;
 
-		private Timezone(System.TimeZoneInfo tz)
+		private TimeZone(System.TimeZoneInfo tz)
 		{
 			this.internalTz = tz;
 		}
-		public static Timezone UTC()
+		public static TimeZone UTC()
 		{
-         return new Timezone ( System.TimeZoneInfo.Utc);
+         return new TimeZone ( System.TimeZoneInfo.Utc);
 		}
-		public static Timezone Local()
+        public TimeZoneInfo ToTimeZoneInfo()
 		{
-         return new Timezone (TimeZoneInfo.Local);
-		}
-		public decimal Translate(decimal utcSecondsFromEpoch)
-		{
-            //Really hackish
-         var time = new Time(utcSecondsFromEpoch).ToDateTime(internalTz);
-            return new decimal((time-new DateTime(1970,1,1,0,0,0,0,DateTimeKind.Utc)).TotalSeconds);
-		}
-         public TimeZoneInfo ToTimeZoneInfo()
-         {
             return internalTz;
-         }
+		}
+		public  static TimeZone FromTimeZoneInfo(TimeZoneInfo tzInfo)
+		{
+			return new TimeZone (tzInfo);;
+		}
 	}
 	
 }
