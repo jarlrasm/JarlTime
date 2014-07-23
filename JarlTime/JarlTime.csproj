@@ -43,6 +43,7 @@
     <Compile Include="Right.cs" />
     <Compile Include="Projections\Gregorian.cs" />
     <Compile Include="Projections\UnixEpoch.cs" />
+    <Compile Include="IntervalExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

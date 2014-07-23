@@ -12,39 +12,14 @@ namespace JarlTime
 		{
 			return new Time (time.SecondsFromEpoch + interval.Seconds,time.Context);
 		}
-		public static Interval Seconds(this decimal number)
+		public static bool IsBefore(this Time time, Time otherTime)
 		{
-			return new Interval (number);
+			return time < otherTime;
 		}
-		public static Interval Seconds(this int number)
+		public static bool IsAfter(this Time time, Time otherTime)
 		{
-			return new Interval (number);
+			return time > otherTime;
 		}
-		public static Interval Minutes(this decimal number)
-		{
-			return (number*60).Seconds();
-		}
-		public static Interval Minutes(this int number)
-		{
-			return (number*60).Seconds();
-		}
-		public static Interval Hours(this decimal number)
-		{
-			return (number*60).Minutes();
-		}
-		public static Interval Hours(this int number)
-		{
-			return (number*60).Minutes();
-		}
-		public static Interval Days(this decimal number)
-		{
-			return (number*24).Hours();
-		}
-		public static Interval Days(this int number)
-		{
-			return (number*24).Hours();
-		}
-      
          public static DateTime ToDateTime (this Time fromtime, TimeZoneInfo timezone)
          {
             return TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, 0,DateTimeKind.Utc)
