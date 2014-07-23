@@ -44,7 +44,17 @@ namespace JarlTime
 		{
 			return (number*24).Hours();
 		}
+      
+         public static DateTime ToDateTime (this Time fromtime, TimeZoneInfo timezone)
+         {
+            return TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, 0,DateTimeKind.Utc)
+                                         .AddSeconds((double)fromtime.SecondsFromEpoch),TimeZoneInfo.Utc,timezone);
+         }
 
+         public static Time ToTime(this DateTime dateTime)
+         {
+            return new Time(new decimal((dateTime.ToUniversalTime()-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds));
+         }
 	}
 }
 

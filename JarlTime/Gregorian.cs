@@ -5,57 +5,63 @@ namespace JarlTime
 	
 	public class Gregorian:IProjection
 	{
-		private readonly DateTime datetime;
+      private readonly Time time;
+      private readonly Timezone timezone;
 		public Gregorian(int year,int month,int day, int hour=0,int minute=0,int second=0, int milliseconds=0,Timezone timezone=null)
 		{
 			if (timezone == null)
 				timezone = Timezone.UTC ();
+         this.timezone = timezone;
 			//TODO: Validate input
-			this.datetime=timezone.Translate(new DateTime(year,month,day,hour,minute,second,milliseconds, System.DateTimeKind.Utc));
+         time = new DateTime(year, month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime();
+
 		}
 
 		internal Gregorian (Time time, Timezone timezone)
 		{
-			var utctime = new DateTime (1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc).AddSeconds (decimal.ToDouble (time.SecondsFromEpoch));
-			this.datetime=timezone.Translate(utctime);
+         this.time = time;
+         this.timezone = timezone;
 		}
 
-		public int Year {
-			get{return datetime.Year; }
+		public int Year 
+      {
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Year; }
 		}
-		public int Month {
-			get{return datetime.Month; }
+		public int Month 
+      {
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Month; }
 		}
 		public int Day {
-			get{return datetime.Day; }
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Day; }
 		}
 		public int Hour {
-			get{return datetime.Hour; }
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Hour; }
 		}
 		public int Minute {
-			get{return datetime.Minute; }
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Minute; }
 		}
 		public int Second {
-			get{return datetime.Second; }
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Second; }
 		}
 		public int Millisecond {
-			get{return datetime.Millisecond; }
+         get{return time.ToDateTime(timezone.ToTimeZoneInfo()).Millisecond; }
 		}
 
 		public override string ToString ()
 		{
-			return datetime.ToString();
+         return time.ToDateTime(timezone.ToTimeZoneInfo()).ToString();
 		}
 
 
 		public string ToString (string format)
 		{
-			return datetime.ToString(format);//This will probably not be like this in the future.
+         return time.ToDateTime(timezone.ToTimeZoneInfo()).ToString(format);//This will  not be like this in the future.
 		}
+
 
 		public Time Time {
 			get {
-				return new Time(new decimal((datetime.ToUniversalTime()-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds));
+            return time;
 			}
 		}
 

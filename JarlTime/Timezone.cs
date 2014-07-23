@@ -4,31 +4,30 @@ namespace JarlTime
 {
 	public class Timezone
 	{
-		private readonly TimeZone internalTz;
+        private readonly TimeZoneInfo internalTz;
 
-		private Timezone()
-		{
-
-		}
-		private Timezone(System.TimeZone tz)
+		private Timezone(System.TimeZoneInfo tz)
 		{
 			this.internalTz = tz;
 		}
 		public static Timezone UTC()
 		{
-			return new Timezone ();
+         return new Timezone ( System.TimeZoneInfo.Utc);
 		}
 		public static Timezone Local()
 		{
-			return new Timezone (TimeZone.CurrentTimeZone);
+         return new Timezone (TimeZoneInfo.Local);
 		}
-		//TODO: Find a proper way of doing this without internal functions
-		internal DateTime Translate(DateTime utc)
+		public decimal Translate(decimal utcSecondsFromEpoch)
 		{
-			if (internalTz == null)
-				return utc;
-			return internalTz.ToLocalTime (utc);
+            //Really hackish
+         var time = new Time(utcSecondsFromEpoch).ToDateTime(internalTz);
+            return new decimal((time-new DateTime(1970,1,1,0,0,0,0,DateTimeKind.Utc)).TotalSeconds);
 		}
+         public TimeZoneInfo ToTimeZoneInfo()
+         {
+            return internalTz;
+         }
 	}
 	
 }
