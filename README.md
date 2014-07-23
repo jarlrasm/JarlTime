@@ -4,10 +4,10 @@ A simple .NET library for time.
 
 Ideas
 -----
-*Separation of logic and presentation: Time struct ignores all information about timezones and calendars.
-*Testability: Inject context to your classes for different meanings of Now
-*Immutability
-*Simplicity?
+* Separation of logic and presentation: Time struct ignores all information about timezones and calendars.
+* Testability: Inject context to your classes for different meanings of Now
+* Immutability
+* Simplicity?
 
 Examples
 --------
