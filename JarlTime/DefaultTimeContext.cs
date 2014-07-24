@@ -39,7 +39,7 @@ namespace JarlTime
 			{typeof(Gregorian),(x,y)=>new Gregorian(x,y)},
 			{typeof(UnixEpoch),(x,y)=>new UnixEpoch(x,y)}
 		};
-		public void RegisterProjection<T>(Func<Time,TimeZone,T> registration) where T:class,IProjection
+		public void RegisterProjection<T>(Func<Time,TimeZone,IProjection> registration) where T:class,IProjection
 		{
 			projections [typeof(T)] = registration;
 		}
