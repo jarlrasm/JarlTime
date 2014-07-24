@@ -37,7 +37,14 @@ namespace Test
 		{
 			var interval = 10.Minutes().And(10.Seconds());
 			Assert.AreEqual (610, interval.Seconds);
-		}
+      }
+      [Test]
+      public void FromAdds()
+      {
+         var time=Right.Now;
+         var newtime=1.Seconds().From(time);
+         Assert.AreEqual (-1, time.Interval (newtime).Seconds);
+      }
 	}
 }
 

@@ -39,7 +39,11 @@ namespace JarlTime
 		public static Interval And(this Interval inteval,Interval with)
 		{
 			return new Interval(inteval.Seconds+with.Seconds);
-		}
+      }
+      public static Time From(this Interval interval,Time origin)
+      {
+         return origin.Add(interval);
+      }
 	}
 }
 
