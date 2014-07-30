@@ -45,6 +45,27 @@ namespace Test
          var newtime=1.Seconds().From(time);
          Assert.AreEqual (-1, time.Interval (newtime).Seconds);
       }
+      [Test]
+      public void AfterAdds()
+      {
+          var time = Right.Now;
+          var newtime = 1.Seconds().After(time);
+          Assert.AreEqual(-1, time.Interval(newtime).Seconds);
+      }
+      [Test]
+      public void ToRemoves()
+      {
+          var time = Right.Now;
+          var newtime = 1.Seconds().To(time);
+          Assert.AreEqual(1, time.Interval(newtime).Seconds);
+      }
+      [Test]
+      public void BeforeRemoves()
+      {
+          var time = Right.Now;
+          var newtime = 1.Seconds().Before(time);
+          Assert.AreEqual(1, time.Interval(newtime).Seconds);
+      }
 	}
 }
 

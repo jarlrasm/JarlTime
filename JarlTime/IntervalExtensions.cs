@@ -41,8 +41,20 @@ namespace JarlTime
 			return new Interval(inteval.Seconds+with.Seconds);
       }
       public static Time From(this Interval interval,Time origin)
+        {
+            return After(interval, origin);
+      }
+      public static Time After(this Interval interval, Time origin)
       {
-         return origin.Add(interval);
+          return origin.Add(interval);
+      }
+      public static Time To(this Interval interval, Time origin)
+      {
+          return Before(interval, origin);
+      }
+      public static Time Before(this Interval interval, Time origin)
+      {
+          return origin.Remove(interval);
       }
 	}
 }

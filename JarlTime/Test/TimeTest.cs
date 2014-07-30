@@ -101,6 +101,13 @@ namespace Test
 			var newtime = time.Add (1.Days());
 			Assert.AreEqual (-86400, time.Interval (newtime).Seconds);
 		}
+        [Test]
+        public void RemovingSecondsRemovesSeconds()
+        {
+            var time = Right.Now;
+            var newtime = time.Remove(1.Seconds());
+            Assert.AreEqual(1, time.Interval(newtime).Seconds);
+        }
 	}
 }
 

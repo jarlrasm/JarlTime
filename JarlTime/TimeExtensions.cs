@@ -13,6 +13,10 @@ namespace JarlTime
 		{
 			return new Time (time.SecondsFromEpoch + interval.Seconds, time.Context);
 		}
+        public static Time Remove(this Time time, Interval interval)
+        {
+            return new Time(time.SecondsFromEpoch - interval.Seconds, time.Context);
+        }
 
 		public static bool IsBefore (this Time time, Time otherTime)
 		{
