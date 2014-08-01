@@ -22,7 +22,7 @@ namespace JarlTime
 		static ITimeContext defaultContext;
 		public Time Now ()
 		{
-			return new Time(new decimal((DateTime.UtcNow-new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc)).TotalSeconds),this);
+            return new Time(new decimal((DateTime.UtcNow - DateTimeExtensions.DateTimeEpoch()).TotalSeconds), this);
 		}
 
 		public TimeZone Here ()

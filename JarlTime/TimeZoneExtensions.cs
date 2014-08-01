@@ -6,17 +6,17 @@ using System.Xml.Linq;
 
 namespace JarlTime
 {
-    public static class TimeZoneConverter
+    public static class TimeZoneExtensions
     {
 
         public static TimeZoneInfo ToTimeZoneInfo(this TimeZone timeZone)
         {
-            return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneConverter.IanaNameToWindowsName(timeZone.Name));
+            return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneExtensions.IanaNameToWindowsName(timeZone.Name));
         }
 
         public static TimeZone ToTimeZone(this TimeZoneInfo tzInfo)
         {
-            return TimeZone.Named(TimeZoneConverter.WindowsNameToIanaName(tzInfo.Id));
+            return TimeZone.Named(TimeZoneExtensions.WindowsNameToIanaName(tzInfo.Id));
         }
         private static IDictionary<Tuple<string, string>, string> timezoneNames;
 
@@ -48,7 +48,7 @@ namespace JarlTime
 
         private static XDocument ReadFromResource(string filename)
         {
-            using(Stream stream = typeof (TimeZoneConverter).Assembly.
+            using(Stream stream = typeof (TimeZoneExtensions).Assembly.
                 GetManifestResourceStream("JarlTime.data." + filename))
             {
                 return XDocument.Load(stream);

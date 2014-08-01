@@ -1,61 +1,81 @@
-﻿using System;
+﻿#region License
+
+// --------------------------------------------------
+// Copyright © OKB. All Rights Reserved.
+// 
+// This software is proprietary information of OKB.
+// USE IS SUBJECT TO LICENSE TERMS.
+// --------------------------------------------------
+
+#endregion
 
 namespace JarlTime
 {
-	public static class IntervalExtensions
-	{
-		public static Interval Seconds(this decimal number)
-		{
-			return new Interval (number);
-		}
-		public static Interval Seconds(this int number)
-		{
-			return new Interval (number);
-		}
-		public static Interval Minutes(this decimal number)
-		{
-			return (number*60).Seconds();
-		}
-		public static Interval Minutes(this int number)
-		{
-			return (number*60).Seconds();
-		}
-		public static Interval Hours(this decimal number)
-		{
-			return (number*60).Minutes();
-		}
-		public static Interval Hours(this int number)
-		{
-			return (number*60).Minutes();
-		}
-		public static Interval Days(this decimal number)
-		{
-			return (number*24).Hours();
-		}
-		public static Interval Days(this int number)
-		{
-			return (number*24).Hours();
-		}
-		public static Interval And(this Interval inteval,Interval with)
-		{
-			return new Interval(inteval.Seconds+with.Seconds);
-      }
-      public static Time From(this Interval interval,Time origin)
+    public static class IntervalExtensions
+    {
+        public static Interval Seconds(this decimal number)
+        {
+            return new Interval(number);
+        }
+
+        public static Interval Seconds(this int number)
+        {
+            return new Interval(number);
+        }
+
+        public static Interval Minutes(this decimal number)
+        {
+            return (number*60).Seconds();
+        }
+
+        public static Interval Minutes(this int number)
+        {
+            return (number*60).Seconds();
+        }
+
+        public static Interval Hours(this decimal number)
+        {
+            return (number*60).Minutes();
+        }
+
+        public static Interval Hours(this int number)
+        {
+            return (number*60).Minutes();
+        }
+
+        public static Interval Days(this decimal number)
+        {
+            return (number*24).Hours();
+        }
+
+        public static Interval Days(this int number)
+        {
+            return (number*24).Hours();
+        }
+
+        public static Interval And(this Interval inteval, Interval with)
+        {
+            return new Interval(inteval.Seconds + with.Seconds);
+        }
+
+        public static Time From(this Interval interval, Time origin)
         {
             return After(interval, origin);
-      }
-      public static Time After(this Interval interval, Time origin)
-      {
-          return origin.Add(interval);
-      }
-      public static Time To(this Interval interval, Time origin)
-      {
-          return Before(interval, origin);
-      }
-      public static Time Before(this Interval interval, Time origin)
-      {
-          return origin.Remove(interval);
-      }
-	}
-}
+        }
 
+        public static Time After(this Interval interval, Time origin)
+        {
+            return origin.Add(interval);
+        }
+
+        public static Time To(this Interval interval, Time origin)
+        {
+            return Before(interval, origin);
+        }
+
+        public static Time Before(this Interval interval, Time origin)
+        {
+            return origin.Remove(interval);
+        }
+    }
+}
