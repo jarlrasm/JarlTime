@@ -1,7 +1,9 @@
 using System;
+using JarlTime.Projections.GregorianProjection;
 using NUnit.Framework;
 using JarlTime;
 using JarlTime.Projections;
+using DayOfWeek = JarlTime.Projections.GregorianProjection.DayOfWeek;
 
 namespace Test
 {
@@ -31,13 +33,13 @@ namespace Test
 		public void GregorianMonthIsRight()
 		{
 			var time=new Time(205956690,TimeContext.Default);
-			Assert.AreEqual (GregorianMonth.July ,time.Projection<Gregorian>().Month);
+			Assert.AreEqual (Month.July ,time.Projection<Gregorian>().Month);
 		}
         [Test]
         public void GregorianDayOfWeekIsRight()
         {
             var time = new Time(205956690, TimeContext.Default);
-            Assert.AreEqual(GregorianDayOfWeek.Sunday, time.Projection<Gregorian>().DayOfWeek);
+            Assert.AreEqual(DayOfWeek.Sunday, time.Projection<Gregorian>().DayOfWeek);
         }
 		[Test]
 		public void GregorianDayIsRight()
@@ -68,7 +70,7 @@ namespace Test
 		{
 			var time=Right.Now;
 			var datetime = DateTime.UtcNow;
-			var time2 = new Gregorian (TimeContext.Default,datetime.Year, datetime.Month, datetime.Day, datetime.Hour, datetime.Minute, datetime.Second,datetime.Millisecond).Time;
+			var time2 = new Gregorian (TimeContext.Default,datetime.Year, (Month)datetime.Month, datetime.Day, datetime.Hour, datetime.Minute, datetime.Second,datetime.Millisecond).Time;
 			Assert.IsTrue (time.Interval (time2).Seconds < 1);
 			Assert.IsTrue (time.Interval (time2).Seconds > -1);
 		}

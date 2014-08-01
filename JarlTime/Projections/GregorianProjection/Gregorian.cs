@@ -1,4 +1,6 @@
 using System;
+using JarlTime.Projections.GregorianProjection;
+using DayOfWeek = JarlTime.Projections.GregorianProjection.DayOfWeek;
 
 namespace JarlTime.Projections
 {
@@ -8,13 +10,13 @@ namespace JarlTime.Projections
 		private readonly Time time;
 		private readonly TimeZone timezone;
 
-		public Gregorian (ITimeContext context, int year, int month, int day, int hour = 0, int minute = 0, int second = 0, int milliseconds = 0, TimeZone timezone = null)
+		public Gregorian (ITimeContext context, int year, Month month, int day, int hour = 0, int minute = 0, int second = 0, int milliseconds = 0, TimeZone timezone = null)
 		{
 			if (timezone == null)
 				timezone = context.Gmt();
 			this.timezone = timezone;
 			//TODO: Validate input
-			this.time = new DateTime (year, month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime (context);
+			this.time = new DateTime (year, (int)month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime (context);
 
 		}
 
@@ -30,12 +32,12 @@ namespace JarlTime.Projections
 			get{ return time.ToDateTime (timezone.ToTimeZoneInfo ()).Year; }
 		}
 
-		public GregorianMonth Month {
-			get{ return (GregorianMonth)time.ToDateTime (timezone.ToTimeZoneInfo ()).Month-1; }
+		public Month Month {
+			get{ return (Month)time.ToDateTime (timezone.ToTimeZoneInfo ()).Month-1; }
 		}
-        public GregorianDayOfWeek DayOfWeek
+        public DayOfWeek DayOfWeek
         {
-            get { return (GregorianDayOfWeek)((int)time.ToDateTime(timezone.ToTimeZoneInfo()).DayOfWeek); }
+            get { return (DayOfWeek)((int)time.ToDateTime(timezone.ToTimeZoneInfo()).DayOfWeek); }
         }
 
 		public int Day {
@@ -79,31 +81,4 @@ namespace JarlTime.Projections
 		}
 
 	}
-
-    public enum GregorianMonth
-    {
-        January,
-        February,
-        March,
-        April,
-        May,
-        June,
-        July,
-        August,
-        September,
-        October,
-        November,
-        December
-    }
-
-    public enum GregorianDayOfWeek
-    {
-        Sunday,
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday
-    }
 }

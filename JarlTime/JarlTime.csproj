@@ -38,6 +38,8 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="Period.cs" />
     <Compile Include="PeriodExtensions.cs" />
+    <Compile Include="Projections\GregorianProjection\DayOfWeek.cs" />
+    <Compile Include="Projections\GregorianProjection\Month.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Timezone.cs" />
     <Compile Include="Interval.cs" />
@@ -46,7 +48,7 @@
     <Compile Include="IProjection.cs" />
     <Compile Include="DefaultTimeContext.cs" />
     <Compile Include="Right.cs" />
-    <Compile Include="Projections\Gregorian.cs" />
+    <Compile Include="Projections\GregorianProjection\Gregorian.cs" />
     <Compile Include="Projections\UnixEpoch.cs" />
     <Compile Include="IntervalExtensions.cs" />
     <Compile Include="TimeZoneExtensions.cs" />
