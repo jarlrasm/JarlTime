@@ -36,13 +36,16 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PeriodTest.cs" />
     <Compile Include="TimeTest.cs" />
     <Compile Include="OperatorTest.cs" />
+    <Compile Include="TimeZoneTest.cs" />
     <Compile Include="ToolsTest.cs" />
   </ItemGroup>
   <ItemGroup>

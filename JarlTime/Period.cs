@@ -30,5 +30,9 @@ namespace JarlTime
         {
             get { return length; }
         }
+        public Time End
+        {
+            get { return start.Add(length); }
+        }
     }
 }
