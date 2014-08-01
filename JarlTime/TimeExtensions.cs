@@ -4,12 +4,21 @@ namespace JarlTime
 {
 	public static class TimeExtensions
 	{
-		public static Interval Interval (this Time time, Time othertime)
+		public static Interval Interval (this Time time, Time othertime)//This will give negative if other is later. Is this good?
 		{
 			return new Interval (time.SecondsFromEpoch - othertime.SecondsFromEpoch);
 		}
 
-		public static Time Add (this Time time, Interval interval)
+	    public static Period To(this Time start, Time end)
+	    {
+            return new Period(start, end);
+	    }
+        public static bool In(this Time time, Period period)
+        {
+            return period.Contains(time);
+        }
+
+	    public static Time Add (this Time time, Interval interval)
 		{
 			return new Time (time.SecondsFromEpoch + interval.Seconds, time.Context);
 		}
