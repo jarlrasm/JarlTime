@@ -24,6 +24,10 @@ namespace Test
             Assert.IsFalse(period.Contains(time2));
             Assert.IsTrue(period.Contains(time2.Remove(1.Seconds())));
             Assert.IsFalse(period.Contains(time.Remove(1.Seconds())));
+            Assert.IsTrue(time.In(period));
+            Assert.IsFalse(time2.In(period));
+            Assert.IsTrue(time2.Remove(1.Seconds()).In(period));
+            Assert.IsFalse(time.Remove(1.Seconds()).In(period));
         }
     }
 }
