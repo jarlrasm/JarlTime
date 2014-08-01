@@ -34,14 +34,5 @@ namespace JarlTime
         }
 
 
-        public TimeZoneInfo ToTimeZoneInfo()
-        {
-            return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneConverter.IanaNameToWindowsName(name));
-        }
-
-        public static TimeZone FromTimeZoneInfo(TimeZoneInfo tzInfo)
-        {
-            return new TimeZone(TimeZoneConverter.WindowsNameToIanaName(tzInfo.Id));
-        }
     }
 }

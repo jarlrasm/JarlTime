@@ -6,8 +6,18 @@ using System.Xml.Linq;
 
 namespace JarlTime
 {
-    public class TimeZoneConverter
+    public static class TimeZoneConverter
     {
+
+        public static TimeZoneInfo ToTimeZoneInfo(this TimeZone timeZone)
+        {
+            return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneConverter.IanaNameToWindowsName(timeZone.Name));
+        }
+
+        public static TimeZone ToTimeZone(this TimeZoneInfo tzInfo)
+        {
+            return TimeZone.Named(TimeZoneConverter.WindowsNameToIanaName(tzInfo.Id));
+        }
         private static IDictionary<Tuple<string, string>, string> timezoneNames;
 
         public static string IanaNameToWindowsName(string timezoneId)

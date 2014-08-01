@@ -27,7 +27,7 @@ namespace JarlTime
 
 		public TimeZone Here ()
 		{
-			return TimeZone.FromTimeZoneInfo(TimeZoneInfo.Local);
+			return TimeZoneInfo.Local.ToTimeZone();
 		}
         public TimeZone Gmt()
         {
