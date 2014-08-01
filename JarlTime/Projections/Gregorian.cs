@@ -30,9 +30,13 @@ namespace JarlTime.Projections
 			get{ return time.ToDateTime (timezone.ToTimeZoneInfo ()).Year; }
 		}
 
-		public int Month {
-			get{ return time.ToDateTime (timezone.ToTimeZoneInfo ()).Month; }
+		public GregorianMonth Month {
+			get{ return (GregorianMonth)time.ToDateTime (timezone.ToTimeZoneInfo ()).Month-1; }
 		}
+        public GregorianDayOfWeek DayOfWeek
+        {
+            get { return (GregorianDayOfWeek)((int)time.ToDateTime(timezone.ToTimeZoneInfo()).DayOfWeek); }
+        }
 
 		public int Day {
 			get {
@@ -75,4 +79,31 @@ namespace JarlTime.Projections
 		}
 
 	}
+
+    public enum GregorianMonth
+    {
+        January,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December
+    }
+
+    public enum GregorianDayOfWeek
+    {
+        Sunday,
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday
+    }
 }

@@ -31,8 +31,14 @@ namespace Test
 		public void GregorianMonthIsRight()
 		{
 			var time=new Time(205956690,TimeContext.Default);
-			Assert.AreEqual (7 ,time.Projection<Gregorian>().Month);
+			Assert.AreEqual (GregorianMonth.July ,time.Projection<Gregorian>().Month);
 		}
+        [Test]
+        public void GregorianDayOfWeekIsRight()
+        {
+            var time = new Time(205956690, TimeContext.Default);
+            Assert.AreEqual(GregorianDayOfWeek.Sunday, time.Projection<Gregorian>().DayOfWeek);
+        }
 		[Test]
 		public void GregorianDayIsRight()
 		{
