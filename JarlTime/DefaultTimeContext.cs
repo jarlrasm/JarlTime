@@ -29,6 +29,15 @@ namespace JarlTime
 		{
 			return TimeZone.FromTimeZoneInfo(TimeZoneInfo.Local);
 		}
+        public TimeZone Gmt()
+        {
+            return At("Etc/GMT");
+        }
+        public TimeZone At(string name)
+        {
+            return TimeZone.Named(name);
+        }
+
 
 		public T GetProjection<T>(Time time,TimeZone tz) where T:class,IProjection
 		{
@@ -44,6 +53,8 @@ namespace JarlTime
 			projections [typeof(T)] = registration;
 		}
 
-	}
+
+
+    }
 }
 

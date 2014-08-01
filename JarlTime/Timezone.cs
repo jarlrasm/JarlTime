@@ -1,32 +1,47 @@
+#region License
+
+// --------------------------------------------------
+// Copyright © OKB. All Rights Reserved.
+// 
+// This software is proprietary information of OKB.
+// USE IS SUBJECT TO LICENSE TERMS.
+// --------------------------------------------------
+
+#endregion
+
 using System;
-using System.Collections.Generic;
 
 namespace JarlTime
 {
-	public class TimeZone//TODO: Does not really do much yet. It is supposed to implement IANA tz: http://www.iana.org/time-zones
-	{
-		private readonly TimeZoneInfo internalTz;
+    public class TimeZone
+        //TODO: Does not really do much yet. It is supposed to implement IANA tz: http://www.iana.org/time-zones
+    {
+        private readonly string name;
 
-		private TimeZone (System.TimeZoneInfo tz)
-		{
-			this.internalTz = tz;
-		}
+        private TimeZone(string name)
+        {
+            this.name = name;
+        }
 
-		public static TimeZone UTC ()
-		{
-			return new TimeZone (System.TimeZoneInfo.Utc);
-		}
+        public string Name
+        {
+            get { return name; }
+        }
 
-		public TimeZoneInfo ToTimeZoneInfo ()
-		{
-			return internalTz;
-		}
+        public static TimeZone Named(string name)
+        {
+            return new TimeZone(name);
+        }
 
-		public  static TimeZone FromTimeZoneInfo (TimeZoneInfo tzInfo)
-		{
-			return new TimeZone (tzInfo);
-			;
-		}
-	}
-	
+
+        public TimeZoneInfo ToTimeZoneInfo()
+        {
+            return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneConverter.IanaNameToWindowsName(name));
+        }
+
+        public static TimeZone FromTimeZoneInfo(TimeZoneInfo tzInfo)
+        {
+            return new TimeZone(TimeZoneConverter.WindowsNameToIanaName(tzInfo.Id));
+        }
+    }
 }

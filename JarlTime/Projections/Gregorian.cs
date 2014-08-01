@@ -11,7 +11,7 @@ namespace JarlTime.Projections
 		public Gregorian (ITimeContext context, int year, int month, int day, int hour = 0, int minute = 0, int second = 0, int milliseconds = 0, TimeZone timezone = null)
 		{
 			if (timezone == null)
-				timezone = TimeZone.UTC ();
+				timezone = context.Gmt();
 			this.timezone = timezone;
 			//TODO: Validate input
 			this.time = new DateTime (year, month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime (context);
@@ -22,7 +22,7 @@ namespace JarlTime.Projections
 		{
 			this.time = time;
 			if (timezone == null)
-				timezone = TimeZone.UTC ();
+				timezone = time.Context.Gmt();
 			this.timezone = timezone;
 		}
 
