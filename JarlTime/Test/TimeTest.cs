@@ -82,7 +82,15 @@ namespace Test
 			var time2 = new Gregorian (TimeContext.Default, datetime.Year, (Month)datetime.Month, datetime.Day, datetime.Hour, datetime.Minute, datetime.Second, datetime.Millisecond).Time;
 			Assert.IsTrue (time.Interval (time2).Seconds < 1);
 			Assert.IsTrue (time.Interval (time2).Seconds > -1);
-		}
+        }
+        [Test]
+        public void HereIsHere()
+        {
+            var timezone = Right.Here;
+            var timezoneinfo = TimeZoneInfo.Local;
+            Assert.AreEqual (TimeZoneInfo.Local,timezone.ToTimeZoneInfo());
+        }
+
 
 		[Test]
 		public void AddingSecondsAddsSeconds ()

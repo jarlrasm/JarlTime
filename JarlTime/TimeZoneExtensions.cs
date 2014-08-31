@@ -11,18 +11,29 @@ namespace JarlTime
 
 		public static TimeZoneInfo ToTimeZoneInfo (this TimeZone timeZone)
 		{
-			try {//Windows
+			try 
+            {
+                //Windows
 				return TimeZoneInfo.FindSystemTimeZoneById (TimeZoneExtensions.IanaNameToWindowsName (timeZone.Name));
-			} catch (TimeZoneNotFoundException) {//IANA based timezones
+			}
+            catch
+            {
+                //IANA based timezones
 				return TimeZoneInfo.FindSystemTimeZoneById (timeZone.Name);
 			}
 		}
 
 		public static TimeZone ToTimeZone (this TimeZoneInfo tzInfo)
 		{
-			try {//Windows
+			try
+            {
+                //Windows
 				return TimeZone.Named (TimeZoneExtensions.WindowsNameToIanaName (tzInfo.Id));
-			} catch (TimeZoneNotFoundException) {//IANA based timezones
+			
+            }
+            catch
+            {
+                //IANA based timezones
 				return TimeZone.Named (tzInfo.Id);
 			}
 		}
