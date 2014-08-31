@@ -26,11 +26,21 @@ namespace Test
         public void TimeZoneAtOsloIsAtOslo()
         {
             var timezone = Right.At("Europe/Oslo"); 
-            var time=new Time(205956690, TimeContext.Default);
+			var time=new Time(1409473135, TimeContext.Default);
             var gregorian = time.Projection<Gregorian>(timezone);
+			var zoneinfo = timezone.ToTimeZoneInfo();
+			TimeZoneInfo target;
+			try
+			{
+				target=TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time");
+			}
+			catch
+			{
+				target=TimeZoneInfo.FindSystemTimeZoneById("Europe/Oslo");
+			}
             Assert.AreEqual("Europe/Oslo", timezone.Name);
-            Assert.AreEqual(TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time"), timezone.ToTimeZoneInfo());
-            Assert.AreEqual("11.07.1976 20:11:30", gregorian.ToString());
+			Assert.AreEqual(target, zoneinfo);
+			Assert.AreEqual("31.08.2014 10:18:55", gregorian.ToString());
         }
     }
 }

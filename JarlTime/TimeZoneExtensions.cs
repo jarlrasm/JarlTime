@@ -10,13 +10,27 @@ namespace JarlTime
     {
 
         public static TimeZoneInfo ToTimeZoneInfo(this TimeZone timeZone)
-        {
-            return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneExtensions.IanaNameToWindowsName(timeZone.Name));
+		{
+			try
+			{//Windows
+				return TimeZoneInfo.FindSystemTimeZoneById(TimeZoneExtensions.IanaNameToWindowsName(timeZone.Name));
+			}
+			catch(TimeZoneNotFoundException)
+			{//IANA based timezones
+				return TimeZoneInfo.FindSystemTimeZoneById(timeZone.Name);
+			}
         }
 
         public static TimeZone ToTimeZone(this TimeZoneInfo tzInfo)
         {
-            return TimeZone.Named(TimeZoneExtensions.WindowsNameToIanaName(tzInfo.Id));
+			try
+			{//Windows
+				return TimeZone.Named(TimeZoneExtensions.WindowsNameToIanaName(tzInfo.Id));
+			}
+			catch(TimeZoneNotFoundException)
+			{//IANA based timezones
+				return TimeZone.Named(tzInfo.Id);
+			}
         }
         private static IDictionary<Tuple<string, string>, string> timezoneNames;
 
