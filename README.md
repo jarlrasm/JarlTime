@@ -17,7 +17,7 @@ ITimeContext timeContext = new TimeContext();
 Time time = timeContext.Now();
 time=10.Days().And(10.Hours()).From(time);
 Gregorian gregorian=time.Projection<Gregorian>(timeContext.Here());
-int hour=gregorian.Hour();
+int hour=gregorian.Hour;
 string datestring=gregorian.ToString("yyyy MM dd");
 ```
 
