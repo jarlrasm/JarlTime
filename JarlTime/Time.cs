@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 namespace JarlTime
 {
 	public struct Time
@@ -7,22 +8,21 @@ namespace JarlTime
 		private readonly decimal secondsFromEpoch;
 		private readonly ITimeContext context;
 
-		public Time (decimal seconds,ITimeContext context)
+		public Time (decimal seconds, ITimeContext context)
 		{
 			if (context == null)
-				throw new ArgumentNullException("context");
+				throw new ArgumentNullException ("context");
 			this.context = context;
-			this.secondsFromEpoch=seconds;
+			this.secondsFromEpoch = seconds;
 		}
 
-		public ITimeContext Context
-		{
-			get{ return context;}
+		public ITimeContext Context {
+			get{ return context; }
 		}
 
-		public decimal SecondsFromEpoch{get{ return secondsFromEpoch;}}
+		public decimal SecondsFromEpoch{ get { return secondsFromEpoch; } }
 
-		public T Projection<T>(TimeZone timezone=null) where T:class,IProjection 
+		public T Projection<T> (TimeZone timezone = null) where T:class, IProjection
 		{
 			return context.GetProjection<T> (this, timezone);
 		}
@@ -34,43 +34,47 @@ namespace JarlTime
 			return false;
 		}
 
-		public override int GetHashCode()
+		public override int GetHashCode ()
 		{
-			return secondsFromEpoch.GetHashCode();
+			return secondsFromEpoch.GetHashCode ();
 		}
 
-		public bool Equals(Time otherTime)
+		public bool Equals (Time otherTime)
 		{
 			return secondsFromEpoch == otherTime.secondsFromEpoch;
 		}
 
-		public static bool operator ==(Time a, Time b)
+		public static bool operator == (Time a, Time b)
 		{
-			if (System.Object.ReferenceEquals(a, b))
+			if (System.Object.ReferenceEquals (a, b))
 				return true;
 				
-			return a.Equals(b);
+			return a.Equals (b);
 		}
 
-		public static bool operator !=(Time a, Time b)
+		public static bool operator != (Time a, Time b)
 		{
 			return !(a == b);
 		}
-		public static bool operator >(Time a, Time b)
+
+		public static bool operator > (Time a, Time b)
 		{
-			return (a.secondsFromEpoch>b.secondsFromEpoch);
+			return (a.secondsFromEpoch > b.secondsFromEpoch);
 		}
-		public static bool operator >=(Time a, Time b)
+
+		public static bool operator >= (Time a, Time b)
 		{
-			return (a.secondsFromEpoch>=b.secondsFromEpoch);
+			return (a.secondsFromEpoch >= b.secondsFromEpoch);
 		}
-		public static bool operator <(Time a, Time b)
+
+		public static bool operator < (Time a, Time b)
 		{
-			return (a.secondsFromEpoch<b.secondsFromEpoch);
+			return (a.secondsFromEpoch < b.secondsFromEpoch);
 		}
-		public static bool operator <=(Time a, Time b)
+
+		public static bool operator <= (Time a, Time b)
 		{
-			return (a.secondsFromEpoch<=b.secondsFromEpoch);
+			return (a.secondsFromEpoch <= b.secondsFromEpoch);
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace JarlTime.Projections
 		public Gregorian (ITimeContext context, int year, Month month, int day, int hour = 0, int minute = 0, int second = 0, int milliseconds = 0, TimeZone timezone = null)
 		{
 			if (timezone == null)
-				timezone = context.Gmt();
+				timezone = context.Gmt ();
 			this.timezone = timezone;
 			//TODO: Validate input
 			this.time = new DateTime (year, (int)month, day, hour, minute, second, milliseconds, System.DateTimeKind.Utc).ToTime (context);
@@ -24,7 +24,7 @@ namespace JarlTime.Projections
 		{
 			this.time = time;
 			if (timezone == null)
-				timezone = time.Context.Gmt();
+				timezone = time.Context.Gmt ();
 			this.timezone = timezone;
 		}
 
@@ -33,12 +33,12 @@ namespace JarlTime.Projections
 		}
 
 		public Month Month {
-			get{ return (Month)time.ToDateTime (timezone.ToTimeZoneInfo ()).Month-1; }
+			get{ return (Month)time.ToDateTime (timezone.ToTimeZoneInfo ()).Month - 1; }
 		}
-        public DayOfWeek DayOfWeek
-        {
-            get { return (DayOfWeek)((int)time.ToDateTime(timezone.ToTimeZoneInfo()).DayOfWeek); }
-        }
+
+		public DayOfWeek DayOfWeek {
+			get { return (DayOfWeek)((int)time.ToDateTime (timezone.ToTimeZoneInfo ()).DayOfWeek); }
+		}
 
 		public int Day {
 			get {

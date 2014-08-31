@@ -9,23 +9,25 @@ namespace JarlTime
 			return new Interval (time.SecondsFromEpoch - othertime.SecondsFromEpoch);
 		}
 
-	    public static Period To(this Time start, Time end)
-	    {
-            return new Period(start, end);
-	    }
-        public static bool In(this Time time, Period period)
-        {
-            return period.Contains(time);
-        }
+		public static Period To (this Time start, Time end)
+		{
+			return new Period (start, end);
+		}
 
-	    public static Time Add (this Time time, Interval interval)
+		public static bool In (this Time time, Period period)
+		{
+			return period.Contains (time);
+		}
+
+		public static Time Add (this Time time, Interval interval)
 		{
 			return new Time (time.SecondsFromEpoch + interval.Seconds, time.Context);
 		}
-        public static Time Remove(this Time time, Interval interval)
-        {
-            return new Time(time.SecondsFromEpoch - interval.Seconds, time.Context);
-        }
+
+		public static Time Remove (this Time time, Interval interval)
+		{
+			return new Time (time.SecondsFromEpoch - interval.Seconds, time.Context);
+		}
 
 		public static bool IsBefore (this Time time, Time otherTime)
 		{
@@ -39,7 +41,7 @@ namespace JarlTime
 
 		public static DateTime ToDateTime (this Time fromtime, TimeZoneInfo timezone)
 		{
-            return TimeZoneInfo.ConvertTime(DateTimeExtensions.DateTimeEpoch()
+			return TimeZoneInfo.ConvertTime (DateTimeExtensions.DateTimeEpoch ()
                                          .AddSeconds ((double)fromtime.SecondsFromEpoch), TimeZoneInfo.Utc, timezone);
 		}
 	}
